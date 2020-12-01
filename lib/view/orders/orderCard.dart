@@ -1,20 +1,24 @@
 import 'package:Th_delivery/model/order.dart';
 import 'package:Th_delivery/model/uiconstants.dart';
+import 'package:Th_delivery/view/orders/OrderDetailScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 // ignore: must_be_immutable
 class OrderCard extends StatelessWidget {
   final Order order;
   bool isVisible = false;
   OrderCard({this.order});
-
+  // DateFormat format = DateFormat.yMd().add_jm();
+  var newFormat = DateFormat("yy-MM-dd");
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.of(context)
-        //     .push(MaterialPageRoute(builder: (BuildContext context) {
-        //   return OrderDetailsScreen(order: order);
-        // }));
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (BuildContext context) {
+          return OrderDetailsScreen(order: order);
+        }));
       },
       child: Padding(
         padding: EdgeInsets.only(
@@ -73,10 +77,10 @@ class OrderCard extends StatelessWidget {
                                     fontSize: 16)),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 10.0, bottom: 10.0),
+                            padding:
+                                const EdgeInsets.only(left: 10.0, bottom: 10.0),
                             child: Text(
-                              '${order.createdAt.day}-${order.createdAt.month}-${order.createdAt.year}',
+                              '${DateTime.parse(order.createdAt.toString()).toLocal()}',
                               style: TextStyle(color: Color(0xff25354E)),
                             ),
                           ),
@@ -100,8 +104,7 @@ class OrderCard extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(
                                     right: 10.0, bottom: 10.0),
-                                child: Text(
-                                    '₹ ${order.amount}',
+                                child: Text('₹ ${order.amount}',
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
                                         color: Color(0xff25354E),

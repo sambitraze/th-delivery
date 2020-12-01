@@ -18,7 +18,17 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginScreen(),
+      home: CustomSplash(
+        imagePath: 'assets/flutter_icon.png',
+        backGroundColor: Colors.deepOrange,
+        animationEffect: 'zoom-in',
+        logoSize: 200,
+        home: MyApp(),
+        customFunction: duringSplash,
+        duration: 2500,
+        type: CustomSplashType.StaticDuration,
+        outputAndHome: op,
+    ),
     );
   }
 }
