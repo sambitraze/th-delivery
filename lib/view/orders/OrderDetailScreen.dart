@@ -250,7 +250,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             fontSize: 20,
                           ),
                         ),
-                        trailing: !order.paid
+                        trailing: order.paid
                             ? RaisedButton(
                                 color: Colors.white,
                                 shape: RoundedRectangleBorder(
@@ -290,7 +290,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                   });
                                   await DeliveryBoyService.updateDeliveryBoy(
                                       jsonEncode(deliveryBoy.toJson()));                                },
-                                child: Text('Collect Payment',
+                                child: Text('unpaid',
                                     style: TextStyle(color: Colors.black)),
                               ),
                       )

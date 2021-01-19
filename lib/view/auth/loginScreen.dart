@@ -146,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       isLoading = true;
                     });
                     http.Response response = await http.post(
-                      "http://tandoorhut.tk/deliveryBoy/email",
+                      "http://64.225.85.5/deliveryBoy/email",
                       headers: {"Content-Type": "application/json"},
                       body: jsonEncode({"email": email.text}),
                     );

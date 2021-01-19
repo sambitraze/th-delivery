@@ -6,7 +6,7 @@ class OrderService {
 
   static Future updateOrder(payload) async {
     http.Response response = await http.put(
-      "http://tandoorhut.tk/order/update",
+      "http://64.225.85.5/order/update",
       headers: {"Content-Type": "application/json"},
       body: payload,
     );
@@ -22,7 +22,7 @@ class OrderService {
 
   static Future getAllOrdersById(id) async {
     http.Response response = await http.post(
-      "http://tandoorhut.tk/order/delivery",
+      "http://64.225.85.5/order/delivery",
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"id": id})
     );
