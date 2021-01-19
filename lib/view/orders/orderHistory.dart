@@ -2,6 +2,7 @@ import 'package:Th_delivery/model/order.dart';
 import 'package:Th_delivery/services/orderservice.dart';
 import 'package:Th_delivery/view/orders/orderCard.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OrderHistory extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class _OrderHistoryState extends State<OrderHistory>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   bool isLoading = false;
-  List<Order> all = [];
+  List<Order> neworder = [];
   List<Order> completed = [];
   List<Order> ongoing = [];
   @override
@@ -24,25 +25,22 @@ class _OrderHistoryState extends State<OrderHistory>
   }
 
   loadDataForScreen() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
       isLoading = true;
     });
-    await getOrders();
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  getOrders() async {
-    var _orders = await OrderService.getAllOrders();
+    var id = pref.getString("id");
+    var _orders = await OrderService.getAllOrdersById(id);
     print(_orders.length);
     setState(() {
-      all = _orders.where((orders) {
-        if (true)
-          return true;        
+      neworder = _orders.where((orders) {
+       if (orders.status == 'placed')
+          return true;
+        else
+          return false;
       }).toList();
       ongoing = _orders.where((orders) {
-        if (orders.status == 'placed')
+        if (orders.status == 'out for delivery')
           return true;
         else
           return false;
@@ -54,6 +52,9 @@ class _OrderHistoryState extends State<OrderHistory>
         else
           return false;
       }).toList();
+    });
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -78,9 +79,9 @@ class _OrderHistoryState extends State<OrderHistory>
               labelColor: Colors.orange,
               tabs: [
                 new Tab(
-                  text: 'All',
+                  text: 'New',
                 ),
-                new Tab(text: 'new'),
+                new Tab(text: 'Ongoing'),
                 new Tab(text: 'Completed'),
               ],
               controller: _tabController,
@@ -93,7 +94,7 @@ class _OrderHistoryState extends State<OrderHistory>
         children: [
           isLoading
               ? Center(child: CircularProgressIndicator())
-              : all.length == 0
+              : neworder.length == 0
                   ? Center(
                       child: Text('No Orders',
                           style: TextStyle(
@@ -103,9 +104,9 @@ class _OrderHistoryState extends State<OrderHistory>
                   : ListView.builder(
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
-                      itemCount: all.length,
+                      itemCount: neworder.length,
                       itemBuilder: (BuildContext context, int index) {
-                        var orders = all[index];
+                        var orders = neworder[index];
                         return OrderCard(order: orders);
                       }),
           isLoading

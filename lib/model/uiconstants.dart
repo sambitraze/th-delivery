@@ -15,7 +15,7 @@ class UIConstants {
       ASSUMED_SCREEN_HEIGHT, MediaQuery.of(context).size.height, value);
 
   static const mainColor = Color(0xfff2f3f7);
-  static const splashScreenLogo = 'assets/images/splashScreenLogo.png';
+  static const splashScreenLogo = 'assets/logo.png';
   static const categoryImage =
       'https://zerobucket.nyc3.digitaloceanspaces.com/category/';
   static const productImage = 'https://zerobucket.nyc3.digitaloceanspaces.com/Products/';

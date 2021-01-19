@@ -1,8 +1,12 @@
 import 'dart:convert';
 
+import 'package:Th_delivery/model/deliveryBoy.dart';
 import 'package:Th_delivery/model/order.dart';
 import 'package:Th_delivery/model/uiconstants.dart';
+import 'package:Th_delivery/services/DeliveryBoyService.dart';
+import 'package:Th_delivery/services/orderservice.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
@@ -51,36 +55,6 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
       throw 'Could not call $number';
     }
   }
-
-  // updateOrderStatusRequest() async {
-  //   String userId = order.orderedFrom.id;
-  //   var payload = json.encode({"_id": order.id, "status": status});
-  //   await OrderService.updateStatus(order.id, userId, payload);
-  //   Navigator.of(context).pushAndRemoveUntil(
-  //       MaterialPageRoute(builder: (BuildContext context) {
-  //     return LandingScreen(selectedIndex: 1);
-  //   }), (Route<dynamic> route) => false);
-  // }
-
-  // updateOrderPaidStatus() async {
-  //   String userId = order.orderedFrom.id;
-  //   var payload = json.encode({"_id": order.id, "paid": true});
-  //   await OrderService.updatePaid(order.id, userId, payload);
-  //   Navigator.of(context).pushAndRemoveUntil(
-  //       MaterialPageRoute(builder: (BuildContext context) {
-  //     return LandingScreen(selectedIndex: 1);
-  //   }), (Route<dynamic> route) => false);
-  // }
-
-  // updateTotalOrderComplete() async {
-  //   user = await UserService.getUser();
-  //   int total = int.parse(user.totalOrder) + 1;
-  //   int assigned = int.parse(user.assignedOrder) - 1;
-  //   String totalOrders = total.toString();
-  //   String assignedOrders = assigned.toString();
-  //   var payload = json.encode({"_id": user.id, "totalOrder": "$totalOrders", "assignedOrder": "$assignedOrders"});
-  //   UserService.updateUser(payload);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -232,53 +206,108 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         fontWeight: FontWeight.bold,
                         fontSize: 20)),
                 SizedBox(height: UIConstants.fitToHeight(15, context)),
-                deliveryDetails('Name', '${order.custName}', false),
-                deliveryDetails('Phone', '${order.custNumber}', true),
+                deliveryDetails('Name', '${order.customer.name}', false),
+                deliveryDetails('Phone', '${order.customer.phone}', true),
                 // deliveryDetails('Email', '${order}', false),k
-                deliveryDetails('Address', '', false),
+                deliveryDetails('Address', '${order.customer.address}', false),
                 SizedBox(
                   height: UIConstants.fitToHeight(25, context),
                 ),
-                ListTile(
-                  title: Text(
-                    'Payment Status',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                  trailing: !order.paid?RaisedButton(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        side: BorderSide(color: Colors.transparent)),
-                    onPressed: () {},
-                    child: Text('Paid', style: TextStyle(color: Colors.black)),
-                  ): RaisedButton(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        side: BorderSide(color: Colors.transparent)),
-                    onPressed: () {
-
-                    },
-                    child: Text('Collect Payment',
-                        style: TextStyle(color: Colors.black)),
-                  ),
-                ),                  
+                (order.status == "placed")
+                    ? ListTile(
+                        title: Text(
+                          'Start Delivery',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        trailing: RaisedButton(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                              side: BorderSide(color: Colors.transparent)),
+                          onPressed: () async {
+                            setState(() {
+                              order.status = "out for delivery";
+                            });
+                            await OrderService.updateOrder(
+                                jsonEncode(order.toJson()));
+                          },
+                          child: Text('Start',
+                              style: TextStyle(color: Colors.black)),
+                        ),
+                      )
+                    : Container(),
+                (order.status == "out for delivery")
+                    ? ListTile(
+                        title: Text(
+                          'Payment Status',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        trailing: !order.paid
+                            ? RaisedButton(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25.0),
+                                    side:
+                                        BorderSide(color: Colors.transparent)),
+                                onPressed: () {},
+                                child: Text('Paid',
+                                    style: TextStyle(color: Colors.black)),
+                              )
+                            : RaisedButton(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25.0),
+                                    side:
+                                        BorderSide(color: Colors.transparent)),
+                                onPressed: () async {
+                                  setState(() {
+                                    order.status = "completed";
+                                    order.paid = true;
+                                  });
+                                  await OrderService.updateOrder(
+                                      jsonEncode(order.toJson()));
+                                  SharedPreferences pref =
+                                      await SharedPreferences.getInstance();
+                                  var email = pref.getString("email");
+                                  DeliveryBoy deliveryBoy =
+                                      await DeliveryBoyService
+                                          .getDeliveryBoyByEmail(email);
+                                  setState(() {
+                                    deliveryBoy.assigned =
+                                        (int.parse(deliveryBoy.assigned) - 1)
+                                            .toString();
+                                    deliveryBoy.completed =
+                                        (int.parse(deliveryBoy.completed) + 1)
+                                            .toString();
+                                  });
+                                  await DeliveryBoyService.updateDeliveryBoy(
+                                      jsonEncode(deliveryBoy.toJson()));                                },
+                                child: Text('Collect Payment',
+                                    style: TextStyle(color: Colors.black)),
+                              ),
+                      )
+                    : Container(),
                 SizedBox(height: UIConstants.fitToHeight(25, context)),
               ],
             ),
           ),
         ),
       ),
-      floatingActionButton: order.status != 'out for delivery'
+      floatingActionButton: order.status == 'out for delivery'
           ? FloatingActionButton(
               backgroundColor: Color(0xff141518),
-              onPressed: () async{
+              onPressed: () async {
                 //org/des
-                await launch("https://www.google.com/maps/dir/'20.311521,85.825042'/20.3115278,85.8250556/");
+                await launch(
+                    "https://www.google.com/maps/dir/'20.311521,85.825042'/20.3115278,85.8250556/");
               },
               child: Icon(Icons.directions),
             )
@@ -286,32 +315,25 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     );
   }
 
-
   Widget deliveryDetails(String title, String subtitle, bool call) {
-    return Row(
-      children: [
-        Text('$title: ',
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 17,
-                fontWeight: FontWeight.bold)),
-        Text('$subtitle',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 17,
-                fontWeight: FontWeight.w500)),
-        call
-            ? IconButton(
-                icon: Icon(
-                  Icons.call,
-                  color: Colors.green,
-                ),
-                onPressed: () {
-                  callAction('$subtitle');
-                })
-            : Text(''),
-      ],
+    return ListTile(
+      leading: Text('$title: ',
+          style: TextStyle(
+              color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold)),
+      title: Text('$subtitle',
+          textAlign: TextAlign.left,
+          style: TextStyle(
+              color: Colors.white, fontSize: 17, fontWeight: FontWeight.w500)),
+      trailing: call
+          ? IconButton(
+              icon: Icon(
+                Icons.call,
+                color: Colors.green,
+              ),
+              onPressed: () {
+                callAction('$subtitle');
+              })
+          : Text(''),
     );
   }
 }

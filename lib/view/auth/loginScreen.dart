@@ -1,7 +1,10 @@
+import 'dart:convert';
+
+import 'package:Th_delivery/model/deliveryBoy.dart';
 import 'package:Th_delivery/view/homepage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -14,34 +17,15 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController password = TextEditingController();
   @override
   void initState() {
-    // TODO: implement initState
-    getlogin();
     super.initState();
   }
 
-  getlogin() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    bool temp = pref.getBool("login");
-    if (temp != null) {
-      if (temp) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(),
-          ),
-        );
-      }
-    }
-  }
-
-  savelogin() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setBool("login", true);
-  }
+  final scaffkey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffkey,
       body: Stack(
         children: [
           Container(
@@ -62,7 +46,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   backgroundImage: AssetImage("assets/logo.png"),
                   radius: 50,
                 ),
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 30,
+                ),
                 Container(
                   padding: EdgeInsets.all(12),
                   child: InkWell(
@@ -159,21 +145,38 @@ class _LoginScreenState extends State<LoginScreen> {
                     setState(() {
                       isLoading = true;
                     });
-                    UserCredential userCredential = await FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
-                            email: email.text, password: password.text);
-
-                    setState(() {
-                      isLoading = false;
-                    });
-                    if (userCredential.user.uid != null) {
-                      savelogin();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(),
+                    http.Response response = await http.post(
+                      "http://tandoorhut.tk/deliveryBoy/email",
+                      headers: {"Content-Type": "application/json"},
+                      body: jsonEncode({"email": email.text}),
+                    );
+                    if (response.statusCode == 200) {
+                      var responseMap = json.decode(response.body);
+                      DeliveryBoy deliveryBoy =
+                          DeliveryBoy.fromJson(responseMap[0]);
+                      if (deliveryBoy.password == password.text) {
+                        SharedPreferences pref =
+                            await SharedPreferences.getInstance();
+                        pref.setBool("login", true);
+                        pref.setString("email", deliveryBoy.email);
+                        pref.setString("id", deliveryBoy.id);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(),
+                          ),
+                        );
+                      }
+                    } else {
+                      scaffkey.currentState.showSnackBar(
+                        SnackBar(
+                          content: Text('No User Found'),
                         ),
                       );
                     }
+                    setState(() {
+                      isLoading = false;
+                    });
                   },
                   minWidth: 150,
                   padding: EdgeInsets.all(12),
