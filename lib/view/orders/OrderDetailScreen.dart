@@ -267,34 +267,59 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                     borderRadius: BorderRadius.circular(25.0),
                                     side:
                                         BorderSide(color: Colors.transparent)),
-                                onPressed: () async {
-                                  setState(() {
-                                    order.status = "completed";
-                                    order.paid = true;
-                                  });
-                                  await OrderService.updateOrder(
-                                      jsonEncode(order.toJson()));
-                                  SharedPreferences pref =
-                                      await SharedPreferences.getInstance();
-                                  var email = pref.getString("email");
-                                  DeliveryBoy deliveryBoy =
-                                      await DeliveryBoyService
-                                          .getDeliveryBoyByEmail(email);
-                                  setState(() {
-                                    deliveryBoy.assigned =
-                                        (int.parse(deliveryBoy.assigned) - 1)
-                                            .toString();
-                                    deliveryBoy.completed =
-                                        (int.parse(deliveryBoy.completed) + 1)
-                                            .toString();
-                                  });
-                                  await DeliveryBoyService.updateDeliveryBoy(
-                                      jsonEncode(deliveryBoy.toJson()));                                },
+                                onPressed: () {},
                                 child: Text('unpaid',
                                     style: TextStyle(color: Colors.black)),
                               ),
                       )
                     : Container(),
+
+                ListTile(
+                  title: Text(
+                    'Order Status : ${order.status} ',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: RaisedButton(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                        side: BorderSide(color: Colors.transparent)),
+                    onPressed: (order.status == "out for delivery")
+                        ? () async {
+                            setState(() {
+                              order.status = "completed";
+                              order.paid = true;
+                            });
+                            await OrderService.updateOrder(
+                                jsonEncode(order.toJson()));
+                            SharedPreferences pref =
+                                await SharedPreferences.getInstance();
+                            var email = pref.getString("email");
+                            DeliveryBoy deliveryBoy =
+                                await DeliveryBoyService.getDeliveryBoyByEmail(
+                                    email);
+                            setState(() {
+                              deliveryBoy.assigned =
+                                  (int.parse(deliveryBoy.assigned) - 1)
+                                      .toString();
+                              deliveryBoy.completed =
+                                  (int.parse(deliveryBoy.completed) + 1)
+                                      .toString();
+                            });
+                            await DeliveryBoyService.updateDeliveryBoy(
+                                jsonEncode(deliveryBoy.toJson()));
+                          }
+                        : () {},
+                    child:
+                        Text('Update', style: TextStyle(color: Colors.black)),
+                  ),
+                ),
                 SizedBox(height: UIConstants.fitToHeight(25, context)),
               ],
             ),
@@ -303,13 +328,16 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
       ),
       floatingActionButton: order.status == 'out for delivery'
           ? FloatingActionButton(
-              backgroundColor: Color(0xff141518),
+              backgroundColor: Colors.white,
               onPressed: () async {
                 //org/des
                 await launch(
                     "https://www.google.com/maps/dir/'20.311521,85.825042'/20.3115278,85.8250556/");
               },
-              child: Icon(Icons.directions),
+              child: Icon(
+                Icons.directions,
+                color: Colors.black,
+              ),
             )
           : null,
     );

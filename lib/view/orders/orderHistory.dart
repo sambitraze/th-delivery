@@ -24,6 +24,8 @@ class _OrderHistoryState extends State<OrderHistory>
     super.initState();
   }
 
+
+
   loadDataForScreen() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
@@ -65,7 +67,7 @@ class _OrderHistoryState extends State<OrderHistory>
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(105.0),
         child: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.orange,
           brightness: Brightness.light,
           centerTitle: true,
           title: new Text('Order List',
@@ -76,7 +78,7 @@ class _OrderHistoryState extends State<OrderHistory>
                   fontWeight: FontWeight.w500)),
           bottom: TabBar(
               unselectedLabelColor: Colors.white,
-              labelColor: Colors.orange,
+              labelColor: Colors.white,
               tabs: [
                 new Tab(
                   text: 'New',
@@ -85,7 +87,7 @@ class _OrderHistoryState extends State<OrderHistory>
                 new Tab(text: 'Completed'),
               ],
               controller: _tabController,
-              indicatorColor: Colors.black,
+              indicatorColor: Colors.white,
               indicatorSize: TabBarIndicatorSize.tab),
         ),
       ),
