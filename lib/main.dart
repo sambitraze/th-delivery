@@ -1,11 +1,7 @@
-import 'package:Th_delivery/view/auth/loginScreen.dart';
-import 'package:Th_delivery/view/homepage.dart';
 import 'package:Th_delivery/view/splashScreen.dart';
-import 'package:custom_splash/custom_splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

@@ -146,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       isLoading = true;
                     });
                     http.Response response = await http.post(
-                      "http://64.225.85.5/deliveryBoy/email",
+                      Uri.parse("http://64.225.85.5/deliveryBoy/email"),
                       headers: {"Content-Type": "application/json"},
                       body: jsonEncode({"email": email.text}),
                     );
@@ -168,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       }
                     } else {
-                      scaffkey.currentState.showSnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('No User Found'),
                         ),

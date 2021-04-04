@@ -123,6 +123,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               SizedBox(
                                   height: UIConstants.fitToHeight(10, context)),
+                              // ignore: deprecated_member_use
                               FlatButton.icon(
                                 icon: Icon(
                                   Icons.edit,

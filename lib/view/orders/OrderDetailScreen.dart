@@ -223,7 +223,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             fontSize: 20,
                           ),
                         ),
-                        trailing: RaisedButton(
+                        trailing: MaterialButton(
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25.0),
@@ -251,7 +251,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                           ),
                         ),
                         trailing: order.paid
-                            ? RaisedButton(
+                            ? MaterialButton(
                                 color: Colors.white,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25.0),
@@ -261,7 +261,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 child: Text('Paid',
                                     style: TextStyle(color: Colors.black)),
                               )
-                            : RaisedButton(
+                            : MaterialButton(
                                 color: Colors.white,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25.0),
@@ -285,7 +285,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   ),
                 ),
                 Center(
-                  child: RaisedButton(
+                  child: MaterialButton(
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25.0),

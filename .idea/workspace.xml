@@ -1,13 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="81914721-e727-4446-b685-fa31a688089e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/android/tandoorkey.jks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/DeliveryBoyService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/DeliveryBoyService.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/orderservice.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/orderservice.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/view/Profile/profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/Profile/profile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/auth/loginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/auth/loginScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/homepage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/homepage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/view/orders/OrderDetailScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/orders/OrderDetailScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/orders/orderHistory.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/orders/orderHistory.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +57,8 @@
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/android" />
+    <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager">
@@ -51,6 +80,18 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="100" y="100" width="1352" height="880" key="AVDManager" timestamp="1611243873221">
       <screen x="0" y="0" width="1920" height="1080" />
@@ -60,21 +101,29 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="531" y="295" key="FileChooserDialogImpl/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611243928295" />
-    <state width="914" height="291" key="GridCell.Tab.0.bottom" timestamp="1611323053963">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1874" height="220" key="GridCell.Tab.0.bottom" timestamp="1617524235584">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="914" height="291" key="GridCell.Tab.0.bottom/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611323053963" />
-    <state width="914" height="291" key="GridCell.Tab.0.center" timestamp="1611323053962">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1874" height="220" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1617524235584" />
+    <state width="1874" height="220" key="GridCell.Tab.0.center" timestamp="1617524235584">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="914" height="291" key="GridCell.Tab.0.center/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611323053962" />
-    <state width="914" height="291" key="GridCell.Tab.0.left" timestamp="1611323053962">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1874" height="220" key="GridCell.Tab.0.center/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1617524235584" />
+    <state width="1874" height="220" key="GridCell.Tab.0.left" timestamp="1617524235584">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="914" height="291" key="GridCell.Tab.0.left/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611323053962" />
-    <state width="914" height="291" key="GridCell.Tab.0.right" timestamp="1611323053963">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1874" height="220" key="GridCell.Tab.0.left/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1617524235584" />
+    <state width="1874" height="220" key="GridCell.Tab.0.right" timestamp="1617524235584">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="914" height="291" key="GridCell.Tab.0.right/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611323053963" />
+    <state width="1874" height="220" key="GridCell.Tab.0.right/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1617524235584" />
+    <state x="2385" y="172" key="SettingsEditor" timestamp="1617518366300">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2385" y="172" key="SettingsEditor/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1617518366300" />
   </component>
 </project>

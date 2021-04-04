@@ -1,7 +1,15 @@
+import 'dart:convert';
+
 import 'package:Th_delivery/view/Profile/profile.dart';
 import 'package:Th_delivery/view/orders/orderHistory.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../model/deliveryBoy.dart';
+import '../services/DeliveryBoyService.dart';
+import '../services/DeliveryBoyService.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,6 +18,30 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  var location = new Location();
+  LocationData userLocation;
+  @override
+  void initState() {
+    getLocation();
+    location.changeSettings(interval: 15000);
+    super.initState();
+  }
+
+  getLocation() async {
+    var p = await location.hasPermission();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    DeliveryBoy db = await DeliveryBoyService.getDeliveryBoyByEmail(prefs.getString("email"));
+    if (p == PermissionStatus.denied || p == PermissionStatus.deniedForever) {
+      await location.requestPermission();
+    } else {
+      location.onLocationChanged.listen((LocationData currentLocation) async {
+        db.latitude = currentLocation.latitude.toString();
+        db.longitude = currentLocation.longitude.toString();
+        bool up = await DeliveryBoyService.updateDeliveryBoy(jsonEncode(db.toJson()));
+        print(up);
+      });
+    }
+  }
 
   void _onItemTapped(int index) {
     setState(() {
