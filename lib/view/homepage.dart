@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/deliveryBoy.dart';
 import '../services/DeliveryBoyService.dart';
-import '../services/DeliveryBoyService.dart';
 
 class HomePage extends StatefulWidget {
   @override

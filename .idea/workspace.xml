@@ -20,22 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81914721-e727-4446-b685-fa31a688089e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/tandoorkey.jks" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/services/DeliveryBoyService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/DeliveryBoyService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/orderservice.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/orderservice.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/Profile/profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/Profile/profile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/auth/loginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/auth/loginScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/view/homepage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/homepage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/orders/OrderDetailScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/orders/OrderDetailScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,6 +52,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/android" />
     <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/android" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">

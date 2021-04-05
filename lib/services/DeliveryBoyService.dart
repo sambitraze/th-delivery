@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:Th_delivery/model/deliveryBoy.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DeliveryBoyService {
   static Future getDeliveryBoyByEmail(email) async {
