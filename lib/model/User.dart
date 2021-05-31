@@ -50,7 +50,7 @@ class User {
         latitude: json["latitude"] == null ? null : json["latitude"],
         longitude: json["longitude"] == null ? null : json["longitude"],
         address: json["address"] == null ? null : json["address"],
-        deviceToken: json["deviceToken"] == null ? null : json["deviceToken"],
+        deviceToken: json["deviceToken"] == "null" ? null : json["deviceToken"],
         createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
         updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
         v: json["__v"] == null ? null : json["__v"],

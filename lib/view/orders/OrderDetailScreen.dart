@@ -4,6 +4,7 @@ import 'package:Th_delivery/model/deliveryBoy.dart';
 import 'package:Th_delivery/model/order.dart';
 import 'package:Th_delivery/model/uiconstants.dart';
 import 'package:Th_delivery/services/DeliveryBoyService.dart';
+import 'package:Th_delivery/services/PushServices.dart';
 import 'package:Th_delivery/services/orderservice.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -314,6 +315,16 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             });
                             await DeliveryBoyService.updateDeliveryBoy(
                                 jsonEncode(deliveryBoy.toJson()));
+                            await PushService.sendPushToUser(
+                              "Order Update !!!",
+                              "Your order ${order.orderId} has been delivered.",
+                              order.customer.deviceToken,
+                            );
+                            await PushService.sendToAdmin(
+                              "Order Update !!!",
+                              "Order ${order.orderId} has been delivered.",
+                              "test",
+                            );
                           }
                         : () {},
                     child:

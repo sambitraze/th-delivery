@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:Th_delivery/services/PushServices.dart';
 import 'package:Th_delivery/view/Profile/profile.dart';
 import 'package:Th_delivery/view/orders/orderHistory.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,19 +26,45 @@ class _HomePageState extends State<HomePage> {
     getLocation();
     location.changeSettings(interval: 15000);
     super.initState();
+    PushService.genTokenID();
+    FirebaseMessaging.onMessage.listen(
+      (RemoteMessage message) {
+        RemoteNotification notification = message.notification;
+        AndroidNotification android = message.notification?.android;
+        if (notification != null && android != null) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text(notification.title),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+              content: Text(notification.body),
+              actions: <Widget>[
+                MaterialButton(
+                  child: Text('Ok'),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
+            ),
+          );
+        }
+      },
+    );
   }
 
   getLocation() async {
     var p = await location.hasPermission();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    DeliveryBoy db = await DeliveryBoyService.getDeliveryBoyByEmail(prefs.getString("email"));
+    DeliveryBoy db = await DeliveryBoyService.getDeliveryBoyByEmail(
+        prefs.getString("email"));
     if (p == PermissionStatus.denied || p == PermissionStatus.deniedForever) {
       await location.requestPermission();
     } else {
       location.onLocationChanged.listen((LocationData currentLocation) async {
         db.latitude = currentLocation.latitude.toString();
         db.longitude = currentLocation.longitude.toString();
-        bool up = await DeliveryBoyService.updateDeliveryBoy(jsonEncode(db.toJson()));
+        bool up =
+            await DeliveryBoyService.updateDeliveryBoy(jsonEncode(db.toJson()));
         print(up);
       });
     }
@@ -56,6 +84,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async{
+          await PushService.genTokenID();
+        },
+      ),
       backgroundColor: Colors.black,
       body: DoubleBackToCloseApp(
         snackBar: const SnackBar(

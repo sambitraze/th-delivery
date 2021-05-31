@@ -1,12 +1,13 @@
 import 'dart:convert';
-import 'package:Th_delivery/model/order.dart';
 import 'package:http/http.dart' as http;
+
+import '../model/order.dart';
 
 class OrderService {
 
   static Future updateOrder(payload) async {
     http.Response response = await http.put(
-      Uri.parse("http://64.225.85.5/order/update"),
+      Uri.parse("https://tandoorhut.co/order/update"),
       headers: {"Content-Type": "application/json"},
       body: payload,
     );
@@ -22,7 +23,7 @@ class OrderService {
 
   static Future getAllOrdersById(id) async {
     http.Response response = await http.post(
-      Uri.parse("http://64.225.85.5/order/delivery"),
+      Uri.parse("https://tandoorhut.co/order/delivery"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"id": id})
     );
