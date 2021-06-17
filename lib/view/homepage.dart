@@ -23,10 +23,7 @@ class _HomePageState extends State<HomePage> {
   LocationData userLocation;
   @override
   void initState() {
-    getLocation();
-    location.changeSettings(interval: 15000);
     super.initState();
-    PushService.genTokenID();
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) {
         RemoteNotification notification = message.notification;
@@ -50,6 +47,14 @@ class _HomePageState extends State<HomePage> {
         }
       },
     );
+    genToken();
+    location.changeSettings(interval: 15000);
+  }
+
+  genToken() async {
+    String token = await PushService.genTokenID();
+    print(token);
+    getLocation();
   }
 
   getLocation() async {
@@ -85,8 +90,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () async{
-          await PushService.genTokenID();
+        onPressed: () async {
+          await PushService.sendToAdmin("title", "message",
+              "test");
         },
       ),
       backgroundColor: Colors.black,
